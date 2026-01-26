@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capital HUB | Final Logo Identity</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #0F0F12;
+            --bg-secondary: #1A1C20;
+            --border-color: #2A2D34;
+            --text-main: #F5F6F7;
+            --text-muted: #6B6F76;
+            --accent: #5B4B8A;
+            --white: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px;
+        }
+
+        /* --- THE LOGO STYLE (The Institution) --- */
+        .brand-logo {
+            font-family: 'Inter Tight', sans-serif;
+            font-weight: 800; /* ExtraBold */
+            text-transform: uppercase;
+            letter-spacing: 0.35em; /* The key feature: Extreme Spacing */
+            line-height: 1;
+            white-space: nowrap;
+        }
+
+        /* --- LAYOUT --- */
+        .presentation-container {
+            max-width: 1000px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 60px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--accent);
+            margin-bottom: 15px;
+            display: block;
+            font-weight: 600;
+        }
+
+        /* --- SECTION 1: HERO DISPLAY --- */
+        .hero-display {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 100px 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        /* Grid Background Effect */
+        .hero-display::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            opacity: 0.5;
+            z-index: 1;
+        }
+
+        .hero-logo {
+            font-size: 48px; /* Large Scale */
+            color: var(--text-main);
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Optional: Adding a subtle "registered" mark feel without the symbol */
+        .hero-logo::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background: var(--accent);
+        }
+
+        /* --- SECTION 2: CONTEXTS (Dark vs Light) --- */
+        .context-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .context-card {
+            border-radius: 8px;
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .dark-mode {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .light-mode {
+            background: #F0F2F5; /* Light grey/white paper feel */
+            color: #111;
+        }
+
+        .context-logo {
+            font-size: 24px;
+        }
+
+        .meta-tag {
+            position: absolute;
+            bottom: 15px;
+            left: 20px;
+            font-size: 10px;
+            opacity: 0.5;
+            font-family: 'Inter', monospace;
+        }
+
+        /* --- SECTION 3: APPLICATION MOCKUPS --- */
+        .app-mockup {
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--bg-secondary);
+        }
+
+        .navbar-mock {
+            height: 60px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            padding: 0 30px;
+            justify-content: space-between;
+            background: rgba(15, 15, 18, 0.95);
+        }
+
+        .nav-logo {
+            font-size: 16px; /* Smaller UI Scale */
+            color: var(--text-main);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-link {
+            height: 8px;
+            width: 60px;
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+        
+        .nav-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent);
+        }
+
+        .hero-content-mock {
+            padding: 60px;
+            text-align: center;
+        }
+        
+        .mock-h1 {
+            font-family: 'Inter Tight';
+            font-size: 32px;
+            color: var(--text-main);
+            margin-bottom: 15px;
+        }
+        
+        .mock-p {
+            height: 10px;
+            width: 400px;
+            background: var(--border-color);
+            margin: 0 auto 10px auto;
+            border-radius: 4px;
+        }
+
+        /* --- SECTION 4: SOCIAL ICON ADAPTATION --- */
+        /* Since the logo is very wide, the icon needs to be a monogram */
+        .icon-section {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            background: var(--bg-secondary);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .social-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px; /* Smooth square for apps */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Inter Tight', sans-serif;
+            font-weight: 800;
+            color: var(--text-main);
+            font-size: 28px;
+            letter-spacing: -0.05em; /* Tighter for the icon */
+        }
+
+        .social-circle {
+            border-radius: 50%;
+        }
+
+        .icon-desc h3 {
+            font-family: 'Inter Tight';
+            font-size: 18px;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+        .icon-desc p {
+            font-size: 14px;
+            color: var(--text-muted);
+            max-width: 400px;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 768px) {
+            .hero-logo { font-size: 28px; letter-spacing: 0.2em; } /* Responsive adjustment */
+            .context-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div style="color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px;">Identidad Visual Seleccionada</div>
+        <h1 style="font-family: 'Inter Tight'; font-size: 32px;">The Institution</h1>
+    </header>
+
+    <div class="presentation-container">
+
+        <!-- 1. HERO DISPLAY -->
+        <div>
+            <span class="label">01. Logo Principal (Wordmark)</span>
+            <div class="hero-display">
+                <div class="brand-logo hero-logo">
+                    Capital Hub
+                </div>
+            </div>
+            <p style="margin-top: 15px; color: var(--text-muted); font-size: 14px; text-align: center;">
+                Inter Tight ExtraBold / Tracking 0.35em / Uppercase / Optical Kerning
+            </p>
+        </div>
+
+        <!-- 2. LIGHT VS DARK -->
+        <div>
+            <span class="label">02. Adaptabilidad de Color</span>
+            <div class="context-grid">
+                <div class="context-card dark-mode">
+                    <div class="brand-logo context-logo">Capital Hub</div>
+                    <div class="meta-tag">MODO OSCURO (DEFAULT)</div>
+                </div>
+                <div class="context-card light-mode">
+                    <div class="brand-logo context-logo" style="color: #0F0F12;">Capital Hub</div>
+                    <div class="meta-tag" style="color: #666;">MODO CLARO (DOCUMENTOS)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. UI APPLICATION -->
+        <div>
+            <span class="label">03. Aplicación en Interfaz (Header)</span>
+            <div class="app-mockup">
+                <div class="navbar-mock">
+                    <div class="brand-logo nav-logo">Capital Hub</div>
+                    
+                    <div class="nav-links">
+                        <div class="nav-link"></div>
+                        <div class="nav-link"></div>
+                        <div class="nav-link"></div>
+                    </div>
+                    <div class="nav-avatar"></div>
+                </div>
+                <div class="hero-content-mock">
+                    <div class="mock-h1">De FP a FPD</div>
+                    <div class="mock-p"></div>
+                    <div class="mock-p" style="width: 300px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. SOCIAL ICON -->
+        <div>
+            <span class="label">04. Reducción para Redes (Isotipo)</span>
+            <div class="icon-section">
+                <div class="social-icon">CH</div>
+                <div class="social-icon social-circle">CH</div>
+                <div class="icon-desc">
+                    <h3>El Monograma "CH"</h3>
+                    <p>Dado que el logo principal es muy ancho (wide), para avatares y favicons utilizamos una contracción <strong>Compacta</strong> de las iniciales. Mantiene el peso ExtraBold pero elimina el espaciado para máxima legibilidad en tamaños pequeños.</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
