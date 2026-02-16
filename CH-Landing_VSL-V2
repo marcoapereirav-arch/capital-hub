@@ -1,0 +1,1529 @@
+< !DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Capital Hub | Sistema Completo</title>< !-- Fonts --><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">< !-- Icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"><style>
+
+/* -----------------------------------------------------------
+           RESET & VARIABLES
+        ----------------------------------------------------------- */
+:root {
+    --bg-color: #0F0F12;
+    --surface-color: #1A1C20;
+    /* Slightly lighter for cards */
+    --gray-graphite: #2A2D34;
+    --purple-tech: #5B4B8A;
+    --text-white: #F5F6F7;
+    --text-gray: #6B6F76;
+    --green-cta: #00C853;
+    /* High contrast green for CTA */
+
+    --font-display: 'Inter Tight', sans-serif;
+    --font-body: 'Inter', sans-serif;
+
+    --spacing-section: 120px;
+    --transition-smooth: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: none;
+    /* Custom cursor handling */
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-white);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+}
+
+a,
+button {
+    cursor: none;
+}
+
+/* -----------------------------------------------------------
+           CUSTOM CURSOR
+        ----------------------------------------------------------- */
+#cursor-glow {
+    position: fixed;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(91, 75, 138, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: screen;
+    transition: transform 0.1s ease-out;
+    will-change: transform, left, top;
+}
+
+#cursor-dot {
+    position: fixed;
+    width: 8px;
+    height: 8px;
+    background: var(--text-white);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+}
+
+/* -----------------------------------------------------------
+           BACKGROUND EFFECTS
+        ----------------------------------------------------------- */
+.vignette {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, transparent 0%, rgba(15, 15, 18, 0.8) 100%);
+    pointer-events: none;
+    z-index: 2;
+}
+
+.blob-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.blob {
+    position: absolute;
+    background: var(--purple-tech);
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    animation: moveBlobs 20s infinite alternate ease-in-out;
+}
+
+.blob:nth-child(1) {
+    width: 500px;
+    height: 500px;
+    top: -100px;
+    left: -100px;
+    animation-delay: 0s;
+}
+
+.blob:nth-child(2) {
+    width: 400px;
+    height: 400px;
+    top: 40%;
+    right: -100px;
+    animation-delay: -5s;
+    background: #4a3b75;
+}
+
+.blob:nth-child(3) {
+    width: 600px;
+    height: 600px;
+    bottom: -150px;
+    left: 20%;
+    animation-delay: -10s;
+}
+
+@keyframes moveBlobs {
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(30px, 50px) scale(1.1);
+    }
+
+    100% {
+        transform: translate(-20px, -30px) scale(0.9);
+    }
+}
+
+/* -----------------------------------------------------------
+           TYPOGRAPHY
+        ----------------------------------------------------------- */
+h1,
+h2,
+h3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+h1 {
+    font-size: 44px;
+    letter-spacing: -0.02em;
+}
+
+h2 {
+    font-size: 42px;
+    margin-bottom: 24px;
+}
+
+p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--text-white);
+}
+
+.text-accent {
+    color: var(--purple-tech);
+}
+
+.text-gray {
+    color: var(--text-gray);
+}
+
+.text-white {
+    color: var(--text-white);
+}
+
+/* -----------------------------------------------------------
+           LAYOUT & UTILS
+        ----------------------------------------------------------- */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 3;
+}
+
+section {
+    padding: var(--spacing-section) 0;
+    position: relative;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+/* Scroll Animation Classes */
+.reveal-element {
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(10px);
+    transition: all 0.8s ease-out;
+}
+
+.reveal-element.visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+}
+
+.stagger-1 {
+    transition-delay: 0.1s;
+}
+
+.stagger-2 {
+    transition-delay: 0.2s;
+}
+
+.stagger-3 {
+    transition-delay: 0.3s;
+}
+
+/* -----------------------------------------------------------
+           COMPONENTS
+        ----------------------------------------------------------- */
+
+/* Header */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    padding: 20px 0;
+    transition: var(--transition-smooth);
+    backdrop-filter: blur(0px);
+    /* Starts clear */
+}
+
+header.scrolled {
+    background: rgba(15, 15, 18, 0.8);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 15px 0;
+}
+
+.logo {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 24px;
+    letter-spacing: -0.05em;
+    color: var(--text-white);
+    text-transform: uppercase;
+}
+
+/* Hero */
+#hero {
+    padding-top: 100px;
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    perspective: 1000px;
+    /* For 3D elements */
+    position: relative;
+    /* Default relative, no fixed/sticky */
+    transform-origin: center top;
+}
+
+.hero-content {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    transform-style: preserve-3d;
+}
+
+.hero-highlight {
+    display: inline-block;
+    background: linear-gradient(90deg, #F5F6F7 0%, #9ca3af 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.counter-box {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(91, 75, 138, 0.1);
+    border: 1px solid rgba(91, 75, 138, 0.3);
+    padding: 8px 16px;
+    border-radius: 50px;
+    margin-bottom: 16px;
+    font-weight: 600;
+    font-size: 10px;
+    /* Reduced from 11px to fit one line */
+    white-space: nowrap;
+    /* Force single line */
+    color: #bcb0e3;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Hero Sub Elements & Animations */
+@keyframes glow-pulse {
+
+    0%,
+    100% {
+        text-shadow: 0 0 5px rgba(91, 75, 138, 0.2);
+    }
+
+    50% {
+        text-shadow: 0 0 15px rgba(91, 75, 138, 0.8), 0 0 5px rgba(255, 255, 255, 0.5);
+    }
+}
+
+@keyframes underline-slide {
+    0% {
+        width: 0;
+        left: 0;
+    }
+
+    50% {
+        width: 100%;
+        left: 0;
+    }
+
+    51% {
+        width: 100%;
+        right: 0;
+        left: auto;
+    }
+
+    100% {
+        width: 0;
+        right: 0;
+        left: auto;
+    }
+}
+
+@keyframes text-breathing {
+
+    0%,
+    100% {
+        color: #F5F6F7;
+    }
+
+    50% {
+        color: #D1D5DB;
+    }
+}
+
+.hero-sub-small {
+    font-size: 14px;
+    color: var(--text-gray);
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.hero-price-line {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 24px;
+    color: #F5F6F7;
+    margin-top: 24px;
+    margin-bottom: 8px;
+}
+
+.hero-desc-line {
+    font-size: 16px;
+    /* Reduced from 18px to fit 1 line on desktop */
+    animation: text-breathing 6s infinite ease-in-out;
+    color: #F5F6F7;
+    /* Fallback */
+    line-height: 1.6;
+}
+
+.glow-text {
+    color: #FFFFFF;
+    font-weight: 800;
+    animation: glow-pulse 3s infinite;
+}
+
+.underline-anim {
+    position: relative;
+    font-weight: 600;
+    display: inline-block;
+}
+
+.underline-anim::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    height: 2px;
+    background-color: var(--purple-tech);
+    animation: underline-slide 3s infinite ease-in-out;
+}
+
+.hero-credibility {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+    font-size: 14px;
+    color: var(--text-gray);
+    border-left: 2px solid var(--purple-tech);
+    padding-left: 12px;
+}
+
+.el-pais {
+    font-style: italic;
+    color: #D1D5DB;
+}
+
+/* VSL Container */
+.vsl-wrapper {
+    margin-top: 30px;
+    width: 100%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    aspect-ratio: 16/9;
+    background: #000;
+    border-radius: 16px;
+    border: 1px solid var(--gray-graphite);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    transition: transform 0.1s ease-out;
+    cursor: none;
+}
+
+.vsl-overlay {
+    position: absolute;
+    inset: 0;
+    background: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop') center/cover;
+    opacity: 0.6;
+    transition: transform 0.4s ease;
+}
+
+.vsl-wrapper:hover .vsl-overlay {
+    transform: scale(1.05);
+}
+
+.play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 24px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 0 0 rgba(91, 75, 138, 0.7);
+    animation: pulse-purple 2s infinite;
+    z-index: 10;
+}
+
+.vsl-wrapper:hover .play-btn {
+    transform: translate(-50%, -50%) scale(1.2);
+    background: var(--purple-tech);
+    box-shadow: 0 0 30px var(--purple-tech);
+}
+
+/* Buttons */
+.btn-main {
+    display: inline-block;
+    background: var(--green-cta);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 20px;
+    padding: 24px 48px;
+    border-radius: 8px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 20px rgba(0, 200, 83, 0.3);
+    margin-top: 24px;
+    border: none;
+    z-index: 10;
+}
+
+.btn-main::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transform: skewX(-20deg);
+    animation: shimmer 4s infinite;
+}
+
+.btn-main:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 200, 83, 0.5), 0 0 20px rgba(0, 200, 83, 0.3) inset;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+
+    20% {
+        left: 200%;
+    }
+
+    100% {
+        left: 200%;
+    }
+}
+
+@keyframes pulse-purple {
+    0% {
+        box-shadow: 0 0 0 0 rgba(91, 75, 138, 0.7);
+    }
+
+    70% {
+        box-shadow: 0 0 0 20px rgba(91, 75, 138, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(91, 75, 138, 0);
+    }
+}
+
+/* Cards */
+.feature-card {
+    background: rgba(26, 28, 32, 0.6);
+    border: 1px solid var(--gray-graphite);
+    padding: 40px;
+    border-radius: 16px;
+    transition: all 0.1s ease-out;
+    /* Fast for tilt */
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+    height: 100%;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.06), transparent 40%);
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.feature-card:hover {
+    border-color: var(--purple-tech);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    transform: translateZ(20px);
+    /* Lift */
+}
+
+.feature-card:hover::before {
+    opacity: 1;
+}
+
+.feature-content {
+    position: relative;
+    z-index: 1;
+    transform: translateZ(30px);
+    /* Parallax inside card */
+}
+
+.check-icon {
+    color: var(--green-cta);
+    margin-right: 12px;
+    font-size: 20px;
+    transition: transform 0.3s;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.feature-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.feature-item:hover .check-icon {
+    transform: scale(1.3) rotate(10deg);
+}
+
+/* Guarantee Section */
+.guarantee-icon-svg {
+    width: 64px;
+    height: 64px;
+    stroke: #D1D5DB;
+    /* Linear style, off-white/gray */
+    stroke-width: 1.5;
+    fill: none;
+    margin-bottom: 24px;
+    display: inline-block;
+    transition: transform 0.4s ease;
+}
+
+.feature-card:hover .guarantee-icon-svg {
+    transform: scale(1.05);
+}
+
+/* FAQ Section */
+.faq-item {
+    border: 1px solid var(--gray-graphite);
+    border-radius: 8px;
+    margin-bottom: 12px;
+    background: rgba(26, 28, 32, 0.4);
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-question {
+    padding: 24px;
+    cursor: pointer;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--text-white);
+}
+
+.faq-question:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 0 24px;
+    color: var(--text-gray);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.faq-item.active {
+    border-color: var(--purple-tech);
+}
+
+.faq-item.active .faq-answer {
+    padding-bottom: 24px;
+}
+
+.faq-icon {
+    transition: transform 0.3s;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(180deg);
+}
+
+/* Footer */
+footer {
+    background: var(--surface-color);
+    padding: 20px 0;
+    /* Compact padding */
+    border-top: 1px solid var(--gray-graphite);
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 900px;
+    margin: 0 auto;
+    opacity: 0.5;
+    /* Fade out whole footer */
+    transition: opacity 0.3s;
+}
+
+.footer-content:hover {
+    opacity: 0.8;
+    /* More visible on hover */
+}
+
+.footer-text-item {
+    font-family: var(--font-body);
+    font-size: 10px;
+    /* Uniform tiny size */
+    line-height: 1.35;
+    color: var(--text-gray);
+    margin-bottom: 6px;
+    /* Very compact spacing */
+}
+
+.footer-text-item:last-child {
+    margin-bottom: 0;
+}
+
+.footer-text-item strong {
+    font-weight: 700;
+    /* Subtle bold, same size */
+    color: inherit;
+}
+
+/* Steps Section Specifics (replaces old offer ID styles) */
+#steps {
+    background-color: var(--bg-color);
+    position: relative;
+    z-index: 10;
+    margin-top: -80px;
+    border-radius: 24px 24px 0 0;
+    box-shadow: 0 -20px 60px rgba(0, 0, 0, 0.8);
+    padding-top: 80px;
+    padding-bottom: 60px;
+    /* Reduced padding */
+}
+
+/* Updated Section Title */
+#steps h2 {
+    text-align: center;
+    font-size: 46px;
+    /* Larger desktop size */
+    max-width: 900px;
+    margin: 0 auto 60px auto;
+    background: transparent !important;
+    /* Force remove bg */
+    background-color: transparent !important;
+    text-shadow: none;
+    line-height: 1.1;
+}
+
+/* 
+           REDUCED SPACING FOR SPECIFIC SECTIONS (50% REDUCTION)
+           Default section spacing is 120px (per CSS variable). 
+           We override these specific sections to 60px top/bottom 
+           to visually halve the gap between them.
+        */
+#bio,
+#offer-details,
+#guarantee,
+#faq,
+#contact {
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+/* TIMELINE STYLES */
+.timeline-container {
+    position: relative;
+    max-width: 800px;
+    margin: 60px auto 0;
+    padding-bottom: 40px;
+    overflow: hidden;
+    /* Prevent line from sticking out */
+}
+
+.timeline-line-bg,
+.timeline-line-progress {
+    position: absolute;
+    left: 80px;
+    /* Adjust based on number width */
+    top: 0;
+    bottom: auto;
+    /* Remove bottom 0 */
+    /* Height set by JS */
+    width: 4px;
+    background: var(--gray-graphite);
+    z-index: 1;
+    border-radius: 4px;
+}
+
+.timeline-line-bg {
+    height: 100%;
+    /* JS will override */
+}
+
+.timeline-line-progress {
+    background: var(--purple-tech);
+    height: 0;
+    /* JS handles this */
+    transition: height 0.1s linear;
+    box-shadow: 0 0 10px rgba(91, 75, 138, 0.5);
+}
+
+.timeline-step {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    /* Top align card with node */
+    margin-bottom: 60px;
+    z-index: 2;
+}
+
+.step-left {
+    width: 80px;
+    /* Space for number */
+    padding-right: 20px;
+    text-align: right;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 40px;
+    /* Match node height for alignment */
+}
+
+.step-number-text {
+    font-family: var(--font-display);
+    font-size: 36px;
+    font-weight: 800;
+    color: var(--text-gray);
+    transition: color 0.4s ease;
+}
+
+.step-node-container {
+    width: 4px;
+    /* Matches line width */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    /* To center vertically with number/card title top */
+    flex-shrink: 0;
+    position: relative;
+}
+
+.step-node {
+    width: 16px;
+    height: 16px;
+    background: var(--gray-graphite);
+    border-radius: 50%;
+    transition: all 0.4s ease;
+    border: 2px solid var(--bg-color);
+    /* Cutout effect */
+    z-index: 3;
+}
+
+.step-content {
+    margin-left: 30px;
+    flex-grow: 1;
+    opacity: 0.3;
+    transform: translateX(20px);
+    transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    /* Base border to prevent layout shift */
+    border-left: 3px solid var(--gray-graphite);
+}
+
+/* New Animated Titles */
+.step-title-glow {
+    color: var(--text-white);
+    margin-bottom: 12px;
+    animation: title-pulse 4s infinite ease-in-out;
+}
+
+@keyframes title-pulse {
+
+    0%,
+    100% {
+        text-shadow: 0 0 5px rgba(91, 75, 138, 0.4);
+    }
+
+    50% {
+        text-shadow: 0 0 15px rgba(91, 75, 138, 0.8);
+    }
+}
+
+/* Active States */
+.timeline-step.active .step-number-text {
+    color: var(--purple-tech);
+}
+
+.timeline-step.active .step-node {
+    background: var(--purple-tech);
+    transform: scale(1.3);
+    box-shadow: 0 0 15px rgba(91, 75, 138, 0.6);
+}
+
+.timeline-step.active .step-content {
+    opacity: 1;
+    transform: translateX(0);
+    border-left-color: var(--purple-tech);
+    /* Only change color */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Step 4 Special "MOMENTO FINAL" */
+.timeline-step.step-4 .step-content {
+    /* Reserve space for active border */
+    border: 2px solid var(--gray-graphite);
+}
+
+.timeline-step.step-4.active .step-number-text {
+    text-shadow: 0 0 20px var(--purple-tech);
+    color: #fff;
+}
+
+.timeline-step.step-4.active .step-node {
+    box-shadow: 0 0 25px var(--purple-tech);
+    background: #fff;
+    /* Even brighter center */
+}
+
+.timeline-step.step-4.active .step-content {
+    border-color: var(--purple-tech);
+    /* Only change color */
+    box-shadow: 0 0 40px rgba(91, 75, 138, 0.4);
+    animation: card-pulse-purple 3s infinite ease-in-out;
+    background: rgba(91, 75, 138, 0.1);
+}
+
+@keyframes card-pulse-purple {
+
+    0%,
+    100% {
+        box-shadow: 0 0 30px rgba(91, 75, 138, 0.3);
+        border-color: var(--purple-tech);
+    }
+
+    50% {
+        box-shadow: 0 0 50px rgba(91, 75, 138, 0.6);
+        border-color: #7d6ab6;
+    }
+}
+
+/* Offer Section Specific Styles */
+.offer-title-text {
+    animation: text-breathing 6s infinite ease-in-out;
+}
+
+.offer-title-price {
+    /* Silver Gradient shimmer for 8€ */
+    background: linear-gradient(110deg, #b0b0b0 40%, #ffffff 50%, #b0b0b0 60%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer-silver 4s infinite linear;
+    display: inline-block;
+    font-weight: 800;
+    text-shadow: none;
+}
+
+@keyframes shimmer-silver {
+    0% {
+        background-position: 200% center;
+    }
+
+    100% {
+        background-position: -200% center;
+    }
+}
+
+.badge-gratis {
+    background-color: var(--purple-tech);
+    color: #fff;
+    font-weight: 800;
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    vertical-align: middle;
+    display: inline-block;
+    margin-left: 5px;
+    box-shadow: 0 0 10px rgba(91, 75, 138, 0.4);
+    text-transform: uppercase;
+}
+
+#offer-details .feature-card {
+    padding-bottom: 70px;
+    /* Added breathing room at bottom */
+}
+
+#offer-details .feature-item {
+    justify-content: flex-start;
+    /* Left align */
+    text-align: left;
+}
+
+#offer-details .price-big {
+    font-size: 32px !important;
+    /* Smaller but more heavy */
+    font-weight: 900 !important;
+}
+
+.price-shimmer {
+    font-weight: 800;
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(110deg, #fff 40%, #a89ec9 50%, #fff 60%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: shimmer-text 4s infinite linear;
+}
+
+@keyframes shimmer-text {
+    0% {
+        background-position: 200% 0;
+    }
+
+    50% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    #hero {
+        padding-top: 80px;
+    }
+
+    /* Compact Hero Mobile Styles */
+    .counter-box {
+        font-size: 8px !important;
+        /* Reduced to fit 2 lines */
+        padding: 6px 10px !important;
+        max-width: 100% !important;
+        margin-bottom: 12px !important;
+        line-height: 1.3 !important;
+        white-space: normal !important;
+        /* Reset for mobile wrap */
+    }
+
+    #hero h1 {
+        font-size: 21px !important;
+        line-height: 1.15 !important;
+        letter-spacing: -0.5px !important;
+        width: 100%;
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .hero-sub-small {
+        font-size: 8.5px !important;
+        /* Reduced to fit 1 line */
+        letter-spacing: 0.5px !important;
+        margin-top: 12px !important;
+        margin-bottom: 12px !important;
+        white-space: nowrap;
+        /* Force check, but size should handle it */
+    }
+
+    .hero-price-line {
+        font-size: 18px !important;
+        margin-top: 16px !important;
+        margin-bottom: 8px !important;
+    }
+
+    .hero-desc-line {
+        font-size: 14px !important;
+    }
+
+    .hero-credibility {
+        font-size: 12px !important;
+        margin-top: 12px !important;
+    }
+
+    /* Section Title Mobile Fix - Max 2 lines */
+    #steps h2 {
+        font-size: 18px !important;
+        line-height: 1.25 !important;
+        max-width: 100% !important;
+        padding: 0 5px !important;
+    }
+
+    .grid-2 {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .vsl-wrapper {
+        margin-top: 16px !important;
+        max-width: 100%;
+    }
+
+    .btn-main {
+        margin-top: 20px;
+        width: 100%;
+        padding: 20px;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .blob {
+        opacity: 0.2;
+    }
+
+    /* Reduce blob intensity */
+
+    /* Disable heavy tilt on mobile */
+    .feature-card {
+        transform: none !important;
+    }
+
+    .vsl-wrapper {
+        transform: none !important;
+    }
+
+    #cursor-glow,
+    #cursor-dot {
+        display: none;
+    }
+
+    * {
+        cursor: auto;
+    }
+
+    a,
+    button {
+        cursor: pointer;
+    }
+
+    /* Mobile Timeline specific overrides */
+    .timeline-line-bg,
+    .timeline-line-progress {
+        left: 40px;
+    }
+
+    .step-left {
+        width: 40px;
+        padding-right: 10px;
+    }
+
+    .step-number-text {
+        font-size: 24px;
+    }
+
+    .step-content {
+        margin-left: 15px;
+        padding: 20px !important;
+        /* compact */
+    }
+
+    /* Reduce body text size in mobile for steps */
+    .timeline-step p {
+        font-size: 14px !important;
+        line-height: 1.5 !important;
+    }
+
+    .timeline-container {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* Offer Details Mobile Fixes */
+    #offer-details h2 {
+        font-size: 20px !important;
+        /* Aggressively reduced for 2 lines */
+        line-height: 1.2 !important;
+    }
+
+    #offer-details .feature-card {
+        padding: 24px !important;
+        /* Adjust padding for mobile */
+        padding-bottom: 40px !important;
+        height: auto !important;
+        /* Ensure content expands naturally */
+    }
+
+    #offer-details .price-big {
+        font-size: 28px !important;
+        /* Slightly smaller price on mobile */
+    }
+}
+
+</style></head><body>< !-- Custom Cursor --><div id="cursor-glow"></div><div id="cursor-dot"></div>< !-- Background Ambience --><div class="vignette"></div><div class="blob-container"><div class="blob"></div><div class="blob"></div><div class="blob"></div></div>< !-- Navigation --><header id="main-header"><div class="container flex-center" style="justify-content: space-between;"><div class="logo">Capital Hub</div>< !-- Optional: Menu icon or CTA small --></div></header>< !-- Hero Section --><section id="hero"><div class="container hero-content"><div class="reveal-element stagger-1"><div class="counter-box">PARA CUALQUIER QUE QUIERA CONSEGUIR UN TRABAJO REMOTO (1.800€/mes-2.500€/mes) Y NO SEPA POR DÓNDE EMPEZAR </div></div><h1 class="reveal-element stagger-2">CONSIGUE TU PRIMER TRABAJO<br>REMOTO COMO PROFESIONAL<br><span class="hero-highlight">DIGITAL EN MENOS DE 90 DÍAS</span></h1><p class="reveal-element stagger-2 hero-sub-small">INCLUSO SI PARTES DE CERO / SIN EXPERIENCIA PREVIA </p><div class="reveal-element stagger-3" style="max-width: 700px; margin-left: auto; margin-right: auto;"><div class="hero-price-line">Empieza hoy por solo <span class="glow-text">8€</span>. </div><div class="hero-desc-line">Formación paso a paso+acceso <span class="underline-anim">garantizado</span>a nuestra bolsa de empleo. </div></div><div class="reveal-element stagger-3" style="text-align: center;"><div class="hero-credibility"><i class="fa-regular fa-newspaper" style="opacity: 0.5;"></i><span>+de <span id="counter-jobs">0</span>puestos de trabajo online demandados mensualmente según <span class="el-pais">El País</span></span></div></div>< !-- VSL Area --><div class="vsl-wrapper reveal-element stagger-3" id="vsl-card"><div class="vsl-overlay"></div><div class="play-btn"><i class="fa-solid fa-play"></i></div>< !-- This would be an iframe in production --></div>< !-- CTA --><div class="reveal-element stagger-3"><a href="#steps" class="btn-main">EMPEZAR AHORA POR 8€ </a><div style="margin-top: 16px; font-size: 12px; color: var(--text-gray);">14 días gratis. Después 44€/mes. Cancela cuando quieras. Garantía de devolución de 30 días. </div></div></div></section>< !-- SECTION 2: 4 STEPS (VERTICAL TIMELINE REDESIGN) --><section id="steps"><div class="container"><h2 class="reveal-element">CÓMO VAS A CONSEGUIR TU SUELDO ONLINE EN 4 SIMPLES PASOS </h2><div class="timeline-container">< !-- Lines --><div class="timeline-line-bg"></div><div class="timeline-line-progress"></div>< !-- Step 1 --><div class="timeline-step"><div class="step-left"><div class="step-number-text">1</div></div><div class="step-node-container"><div class="step-node"></div></div><div class="feature-card step-content"><h3 class="step-title-glow">Accedes a Capital Hub por 8€</h3><p style="color: var(--text-gray); font-size: 16px;">Desbloqueas las masterclasses y 14 días de acceso completo. Descubres qué profesión digital encaja contigo. </p></div></div>< !-- Step 2 --><div class="timeline-step"><div class="step-left"><div class="step-number-text">2</div></div><div class="step-node-container"><div class="step-node"></div></div><div class="feature-card step-content"><h3 class="step-title-glow">Eliges tu profesión y te formas</h3><p style="color: var(--text-gray); font-size: 16px;">Si te gusta conectar con personas → Comercial PRO. Aprendes a cerrar ventas por videollamada.<br><br>Si prefieres algo más analítico → Marketing Digital. Aprendes a gestionar anuncios para negocios. </p></div></div>< !-- Step 3 --><div class="timeline-step"><div class="step-left"><div class="step-number-text">3</div></div><div class="step-node-container"><div class="step-node"></div></div><div class="feature-card step-content"><h3 class="step-title-glow">Te postulas a trabajos reales</h3><p style="color: var(--text-gray); font-size: 16px;">Empresas nos contactan cada semana buscando perfiles como el tuyo.<br><br>Una empresa de formación busca comercial → Cobras 1.500€ - 2.500€/mes.<br>Una clínica dental busca gestor de anuncios → Cobras 1.500€/mes fijos por clínica. </p></div></div>< !-- Step 4 --><div class="timeline-step step-4"><div class="step-left"><div class="step-number-text">4</div></div><div class="step-node-container"><div class="step-node"></div></div><div class="feature-card step-content"><h3 class="step-title-glow">¡Cobras tu primer sueldo !</h3><p style="color: var(--text-gray); font-size: 16px;">Comercial: 10 ventas de 2.000€ → 8%=1.600€/mes.<br>Marketing: 2 clientes a 750€=1.500€/mes.<br><br>Todo esto desde tu casa y con tu propio horario. </p></div></div></div></div></section>< !-- SECTION 3: BIO --><section id="bio"><div class="container" style="max-width: 800px;"><div class="feature-card reveal-element"><div class="feature-content"><h2 style="margin-bottom: 30px;">¿POR QUÉ CAPITAL HUB?</h2><div style="color: var(--text-gray); font-size: 16px; line-height: 1.8;"><p style="margin-bottom: 20px;">Soy Adrián Villanueva. Llevo más de 4 años operando negocios online en ventas y marketing.</p><p style="margin-bottom: 20px;">En este tiempo he ayudado a generar más de 13 millones de euros para negocios digitales. He sido comercial,
+manager y cofundé una de las agencias de ventas más grandes de España. Hoy tengo mi propia firma,
+Sales Capital,
+donde operamos la parte comercial y de marketing de negocios online.</p><h3 style="margin-bottom: 15px; color: var(--text-white); font-size: 20px;">¿Por qué creé esto?</h3><p style="margin-bottom: 20px;">Llevo años viendo el mismo problema desde los dos lados.</p><p style="margin-bottom: 20px;">Por un lado,
+las empresas. Nos contactan constantemente buscando comerciales,
+marketers,
+perfiles digitales... y no encuentran. Están desesperadas por contratar talento preparado y no hay suficiente.</p><p style="margin-bottom: 20px;">Por otro lado,
+las personas. Miles de ellas quieren trabajar en algo digital pero no saben por dónde empezar. O peor: pagaron 5.000€ por una formación que les dejó igual que al principio o eligieron una profesión que no encajaba con ellos,
+forzando una idea de éxito que les vendieron por redes sociales,
+solo para darse cuenta al terminar de que no era para ellos.</p><h3 style="margin-bottom: 15px; color: var(--text-white); font-size: 20px;">Capital Hub nace para conectar ambos lados.</h3><p style="margin-bottom: 20px;">Te ayudamos a descubrir qué profesión digital encaja contigo. Te formamos en ella. Te certificamos. Y cuando estés listo,
+te conectamos con empresas que ya nos están pidiendo perfiles como el tuyo.</p><p>Accedes,
+lo pruebas y decides si encaja contigo. Si no te convence,
+cancelas. Tienes 30 días de garantía.</p></div><div style="text-align: center; margin-top: 40px;"><a href="#offer-details" class="btn-main">EMPEZAR AHORA</a></div></div></div></div></section>< !-- SECTION 4: OFFER DETAILS --><section id="offer-details"><div class="container" style="max-width: 800px;"><div class="feature-card reveal-element"><div class="feature-content"><div style="text-align: left; margin-bottom: 40px;"><h2 style="font-size: 32px;" class="offer-h2"><span class="offer-title-text">Da el primer paso hacia tu trabajo remoto por solo</span><span class="offer-title-price">8€</span></h2><p style="color: var(--text-gray);">Esto es lo que recibes:</p></div><div style="max-width: 600px; margin: 0;"><div class="feature-item"><i class="fa-solid fa-check check-icon"></i><strong class="text-white">Matrícula de 150€ → <span class="badge-gratis">GRATIS</span></strong></div><div class="feature-item"><i class="fa-solid fa-check check-icon"></i><strong class="text-white">Masterclass: "Cómo conseguir tu primer trabajo remoto en 90 días" </strong></div><div class="feature-item"><i class="fa-solid fa-check check-icon"></i><strong class="text-white">Masterclass: "Cómo el trabajo digital cambió mi vida" </strong></div><div class="feature-item"><i class="fa-solid fa-check check-icon"></i><strong class="text-white">Tour completo de Capital Hub</strong></div><div class="feature-item"><i class="fa-solid fa-check check-icon"></i><strong class="text-white">14 días GRATIS de acceso a todas las formaciones</strong></div><div class="feature-item"><i class="fa-solid fa-check check-icon"></i><strong class="text-white">Acceso a bolsa de empleo con ofertas reales</strong></div></div><div class="price-box" style="margin-top: 40px; text-align: left;"><div class="price-big price-shimmer">HOY: 8€</div><div style="margin-top: 20px;"><a href="#" class="btn-main">QUIERO MI ACCESO</a></div></div></div></div></div></section>< !-- SECTION 5: GUARANTEE --><section id="guarantee"><div class="container"><div class="grid-2"><div class="feature-card reveal-element"><div class="feature-content" style="text-align: center;"><svg class="guarantee-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg><h3>GARANTÍA DE 30 DÍAS</h3><p style="margin-top: 20px; color: var(--text-gray);">Pruébalo a tu ritmo. Accede,
+explora y decide si es para ti. Si en los primeros 30 días no te convence,
+te devolvemos el 100% de tu dinero. Sin preguntas. </p></div></div><div class="feature-card reveal-element stagger-2"><div class="feature-content" style="text-align: center;"><svg class="guarantee-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg><h3>Pago 100% seguro</h3><p style="margin-top: 20px; color: var(--text-gray);">Tu compra está protegida con encriptación bancaria. Tus datos están seguros y nunca se comparten con terceros. </p></div></div></div></div></section>< !-- SECTION 6: FAQ --><section id="faq"><div class="container" style="max-width: 800px;"><h2 class="reveal-element" style="text-align: center; margin-bottom: 40px;">PREGUNTAS FRECUENTES</h2><div class="faq-container reveal-element"><div class="faq-item"><div class="faq-question"><span>¿Necesito experiencia previa para empezar?</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer">No. Las formaciones están diseñadas para empezar desde cero. No importa si nunca has trabajado en digital,
+si no tienes estudios relacionados o si vienes de otro sector. Empiezas desde la base y avanzas paso a paso. </div></div><div class="faq-item"><div class="faq-question"><span>¿Qué pasa después de los 14 días gratis?</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer">Si decides quedarte,
+se activa tu membresía a 44€/mes. Si no te convence,
+cancelas antes de que terminen los 14 días y no se te cobra nada más. Sin permanencia,
+sin complicaciones. </div></div><div class="faq-item"><div class="faq-question"><span>¿Puedo cancelar cuando quiera?</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer">Sí. Cancelas cuando quieras desde tu perfil. Sin llamadas,
+sin emails,
+sin preguntas. Un clic y listo. </div></div><div class="faq-item"><div class="faq-question"><span>¿La bolsa de trabajo es real?</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer">Sí. No tendría sentido montar esto si no lo fuera. Empresas nos contactan cada semana buscando perfiles que no encuentran en ningún lado. Comerciales,
+marketers,
+gente de tech,
+IA,
+etc. Son ofertas reales de empresas reales. </div></div><div class="faq-item"><div class="faq-question"><span>¿En cuánto tiempo puedo conseguir trabajo?</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer">Depende de tu dedicación,
+pero nuestra promesa es que en 90 días o menos puedes conseguir tu primer trabajo remoto si sigues el proceso y te formas en serio. </div></div><div class="faq-item"><div class="faq-question"><span>¿Qué pasa si no me gusta?</span><i class="fa-solid fa-chevron-down faq-icon"></i></div><div class="faq-answer">Tienes 30 días de garantía. Si no te convence,
+te devolvemos el 100% de tu dinero. Sin preguntas. </div></div></div></div></section>< !-- SECTION 7: CONTACT --><section id="contact"><div class="container" style="text-align: center;"><div class="reveal-element" style="border: 1px solid var(--gray-graphite); border-radius: 8px; padding: 20px; display: inline-block; color: var(--text-gray);">¿Tienes dudas? Escríbenos al+34 623 600 094 o envíanos un email a [correo] </div></div></section>< !-- Footer --><footer><div class="container footer-content"><div class="footer-text-item" style="text-transform: uppercase; font-weight: 700; margin-bottom: 8px;">CAPITAL HUB</div><div class="footer-text-item">Este producto es propiedad de Adrián Villanueva & Capital Hub. Copyright 2025 | Política de Privacidad</div><div class="footer-text-item"><strong>Sobre lo que ofrecemos</strong></div><div class="footer-text-item">Capital Hub es una plataforma de formación en profesiones digitales con acceso a una bolsa de empleo real. Todo nuestro contenido tiene fines educativos e informativos.</div><div class="footer-text-item">Los resultados que puedas obtener dependen de muchos factores: tu punto de partida,
+tu dedicación,
+el tiempo que inviertas y tu capacidad de aplicar lo aprendido. Por eso,
+aunque ponemos todo de nuestra parte para darte las mejores herramientas,
+no podemos prometer resultados específicos ni ingresos concretos. Cada persona es diferente y cada camino también.</div><div class="footer-text-item">Las cifras que mencionamos en esta página son ejemplos reales pero ilustrativos. Sirven para que entiendas el potencial del mercado,
+no como garantía de lo que tú vas a ganar.</div><div class="footer-text-item">Lo que sí te garantizamos es la calidad de la formación. Si accedes al contenido y no estás satisfecho,
+tienes 30 días para pedir un reembolso completo. Sin complicaciones.</div><div class="footer-text-item">Los testimonios que aparecen reflejan experiencias de personas reales,
+pero son individuales. Lo que a ellos les funcionó puede no ser exactamente igual para ti.</div><div class="footer-text-item">Nada de lo que encuentres aquí sustituye el asesoramiento de un profesional legal,
+fiscal o financiero. Antes de tomar decisiones importantes,
+consulta con quien corresponda.</div><div class="footer-text-item">Al registrarte en Capital Hub,
+aceptas que las decisiones que tomes y los resultados que obtengas son tu responsabilidad.</div><div class="footer-text-item">Los precios pueden cambiar sin previo aviso. Algunas ofertas incluyen servicios de suscripción con cargos recurrentes. Revisa siempre los detalles antes de comprar.</div></div></footer>< !-- LOGIC --><script>document.addEventListener('DOMContentLoaded', ()=> {
+
+        // --- 1. Custom Cursor Logic ---
+        const cursorGlow=document.getElementById('cursor-glow');
+        const cursorDot=document.getElementById('cursor-dot');
+
+        document.addEventListener('mousemove', (e)=> {
+                // Update dot instantly
+                cursorDot.style.left=e.clientX + 'px';
+                cursorDot.style.top=e.clientY + 'px';
+
+                // Update glow with slight delay (handled via CSS transition, just update pos)
+                cursorGlow.style.left=e.clientX + 'px';
+                cursorGlow.style.top=e.clientY + 'px';
+            });
+
+        // --- 2. 3D Tilt Effect (Vanilla JS) ---
+        const cards=document.querySelectorAll('.feature-card, .vsl-wrapper');
+
+        cards.forEach(card=> {
+                card.addEventListener('mousemove', (e)=> {
+                        if(window.innerWidth < 768) return; // Disable on mobile
+
+                        const rect=card.getBoundingClientRect();
+                        const x=e.clientX - rect.left;
+                        const y=e.clientY - rect.top;
+
+                        // Update mouse position for CSS gradient effect
+                        card.style.setProperty('--mouse-x', `$ {
+                                x
+                            }
+
+                            px`);
+
+                        card.style.setProperty('--mouse-y', `$ {
+                                y
+                            }
+
+                            px`);
+
+                        // Calculate rotation
+                        const centerX=rect.width / 2;
+                        const centerY=rect.height / 2;
+
+                        const rotateX=((y - centerY) / centerY) * -5; // Max 5deg
+                        const rotateY=((x - centerX) / centerX) * 5;
+
+                        card.style.transform=`perspective(1000px) rotateX($ {
+                                rotateX
+                            }
+
+                            deg) rotateY($ {
+                                rotateY
+                            }
+
+                            deg) scale3d(1.02, 1.02, 1.02)`;
+                    });
+
+                card.addEventListener('mouseleave', ()=> {
+                        card.style.transform='perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
+                    });
+            });
+
+        // --- 3. Scroll Reveal Animation & Counter ---
+        const observerOptions= {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        }
+
+        ;
+
+        const observer=new IntersectionObserver((entries)=> {
+                entries.forEach(entry=> {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('visible');
+
+                            // Trigger counter logic when element is visible
+                            if (entry.target.querySelector('#counter-jobs')) {
+                                animateCounter(document.getElementById('counter-jobs'), 0, 300000, 2000);
+                            }
+
+                            observer.unobserve(entry.target);
+                        }
+                    });
+            }
+
+            , observerOptions);
+
+        document.querySelectorAll('.reveal-element').forEach(el=> {
+                observer.observe(el);
+            });
+
+        // --- 4. Sticky Header Blur ---
+        const header=document.getElementById('main-header');
+
+        window.addEventListener('scroll', ()=> {
+                if (window.scrollY > 50) {
+                    header.classList.add('scrolled');
+                }
+
+                else {
+                    header.classList.remove('scrolled');
+                }
+            });
+
+        // --- 5. Stacking Cards / Parallax Hero Effect ---
+        const heroSection=document.getElementById('hero');
+
+        window.addEventListener('scroll', ()=> {
+                if(window.innerWidth < 768) return;
+
+                const scrolled=window.scrollY;
+                const stackingLimit=800;
+                const fadeStart=800;
+                const fadeEnd=1200;
+
+                // 1. Stacking Effect
+                const stackProgress=Math.min(scrolled / stackingLimit, 1);
+
+                // Transformations based on progress
+                const scale=1 - (0.15 * stackProgress); // 1 -> 0.85
+                const y=-100 * stackProgress; // 0 -> -100px
+                const rotX=8 * stackProgress; // 0 -> 8deg
+
+                heroSection.style.transform=`perspective(1000px) translateY($ {
+                        y
+                    }
+
+                    px) scale($ {
+                        scale
+
+                    }) rotateX($ {
+                        rotX
+                    }
+
+                    deg)`;
+
+                // 2. Fade Out Effect
+                let opacity=1;
+
+                if (scrolled > fadeStart) {
+                    const fadeProgress=(scrolled - fadeStart) / (fadeEnd - fadeStart);
+                    opacity=1 - Math.min(Math.max(fadeProgress, 0), 1);
+                }
+
+                heroSection.style.opacity=opacity;
+
+                // 3. Pointer Events
+                if (opacity <=0) {
+                    heroSection.style.pointerEvents='none';
+                }
+
+                else {
+                    heroSection.style.pointerEvents='auto';
+                }
+            });
+
+        // --- 6. FAQ Accordion Logic ---
+        const faqItems=document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item=> {
+                const question=item.querySelector('.faq-question');
+                const answer=item.querySelector('.faq-answer');
+
+                question.addEventListener('click', ()=> {
+
+                        // Close others
+                        faqItems.forEach(otherItem=> {
+                                if (otherItem !==item && otherItem.classList.contains('active')) {
+                                    otherItem.classList.remove('active');
+                                    otherItem.querySelector('.faq-answer').style.maxHeight=null;
+                                }
+                            });
+
+                        // Toggle current
+                        item.classList.toggle('active');
+
+                        if (item.classList.contains('active')) {
+                            answer.style.maxHeight=answer.scrollHeight + "px";
+                        }
+
+                        else {
+                            answer.style.maxHeight=null;
+                        }
+                    });
+            });
+
+        // --- 7. Counter Animation Helper ---
+        function animateCounter(obj, start, end, duration) {
+            let startTimestamp=null;
+
+            const step=(timestamp)=> {
+                if ( !startTimestamp) startTimestamp=timestamp;
+                const progress=Math.min((timestamp - startTimestamp) / duration, 1);
+                obj.innerHTML=Math.floor(progress * (end - start) + start).toLocaleString();
+
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+
+                else {
+                    obj.innerHTML=end.toLocaleString(); // Ensure final value is exact
+                }
+            }
+
+            ;
+            window.requestAnimationFrame(step);
+        }
+
+        // --- 8. Timeline Scroll Animation & Line Height Logic ---
+        const timelineSection=document.getElementById('steps');
+        const progressLine=document.querySelector('.timeline-line-progress');
+        const lineBg=document.querySelector('.timeline-line-bg');
+        const timelineSteps=document.querySelectorAll('.timeline-step');
+        const timelineContainer=document.querySelector('.timeline-container');
+
+        function updateTimelineLineHeight() {
+            if (timelineContainer && timelineSteps.length > 0 && lineBg) {
+                const lastStep=timelineSteps[timelineSteps.length - 1];
+                const lastNode=lastStep.querySelector('.step-node');
+
+                if (lastNode) {
+                    const containerRect=timelineContainer.getBoundingClientRect();
+                    const nodeRect=lastNode.getBoundingClientRect();
+
+                    // Calculate height from top of container to center of last node
+                    const height=(nodeRect.top - containerRect.top) + (nodeRect.height / 2);
+
+                    lineBg.style.height=`$ {
+                        height
+                    }
+
+                    px`;
+                }
+            }
+        }
+
+        if (timelineSection && progressLine) {
+            // Init line height
+            updateTimelineLineHeight();
+            window.addEventListener('resize', updateTimelineLineHeight);
+            window.addEventListener('load', updateTimelineLineHeight);
+
+            window.addEventListener('scroll', ()=> {
+                    // Trigger animation based on screen center
+                    const triggerPoint=window.scrollY + (window.innerHeight * 0.6);
+
+                    const containerRect=timelineContainer.getBoundingClientRect();
+                    const absoluteContainerTop=containerRect.top + window.scrollY;
+
+                    let relativeY=triggerPoint - absoluteContainerTop;
+
+                    // Clamp height limit to the center of the last node (Step 4)
+                    const lastStep=timelineSteps[timelineSteps.length - 1];
+                    // Using offsetTop is safer relative to offsetParent (which is timeline-step, then container)
+                    // The node is inside step-node-container which is flex-centered in timeline-step (40px high)
+                    // So node center is at timeline-step.offsetTop + 20px
+                    const lastNodeOffset=lastStep.offsetTop + 20;
+
+                    if (relativeY < 0) relativeY=0;
+                    if (relativeY > lastNodeOffset) relativeY=lastNodeOffset;
+
+                    progressLine.style.height=`$ {
+                        relativeY
+                    }
+
+                    px`;
+
+                    // Active classes for individual steps
+                    timelineSteps.forEach(step=> {
+                            const stepTop=step.getBoundingClientRect().top + window.scrollY;
+
+                            // Activate when the trigger point passes the step
+                            if (triggerPoint > stepTop + 20) {
+                                step.classList.add('active');
+                            }
+
+                            else {
+                                step.classList.remove('active');
+                            }
+                        });
+                });
+        }
+
+    });
+</script></body></html>

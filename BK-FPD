@@ -1,0 +1,412 @@
+< !DOCTYPE html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>FPD BrandKit Board</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><style>
+
+/* --- RESET & BASE --- */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #050505;
+    /* Fondo del "Canvas" (fuera del board) */
+    margin: 0;
+    padding: 40px;
+    font-family: 'Inter', sans-serif;
+    color: #F5F6F7;
+    display: flex;
+    justify-content: center;
+}
+
+/* --- THE BOARD (Lienzo Principal) --- */
+.brand-board {
+    background-color: #0F0F12;
+    /* FPD Primary Black */
+    width: 1400px;
+    /* Ancho fijo para simular lienzo de diseño */
+    min-height: 2000px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-gap: 24px;
+    padding: 60px;
+    border: 1px solid #2A2D34;
+    box-shadow: 0 0 100px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+/* --- TYPOGRAPHY --- */
+h1,
+h2,
+h3,
+h4,
+.brand-font {
+    font-family: 'Inter Tight', sans-serif;
+}
+
+.ui-font {
+    font-family: 'Inter', sans-serif;
+}
+
+.mono-font {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+h2 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #5B4B8A;
+    /* Púrpura Técnico */
+    margin: 0 0 16px 0;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* --- MODULES (Contenedores del Sistema) --- */
+.module {
+    background: #0F0F12;
+    border: 1px solid #2A2D34;
+    /* Motif: Bordes finos funcionales */
+    padding: 24px;
+    position: relative;
+    /* Motif: Estructura de Bloques */
+}
+
+/* --- HEADER SECTION --- */
+.header {
+    grid-column: span 12;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-bottom: 2px solid #2A2D34;
+    padding-bottom: 40px;
+    margin-bottom: 20px;
+}
+
+.brand-name {
+    font-size: 80px;
+    font-weight: 800;
+    line-height: 0.8;
+    letter-spacing: -3px;
+}
+
+.brand-sub {
+    font-size: 24px;
+    color: #6B7280;
+    font-weight: 400;
+    margin-top: 10px;
+}
+
+.meta-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: #5B4B8A;
+    border: 1px solid #5B4B8A;
+    padding: 4px 8px;
+    border-radius: 2px;
+}
+
+/* --- SECTION 1: IDENTITY (CORES) --- */
+.sec-identity {
+    grid-column: span 4;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.core-card {
+    background: #18181B;
+    /* Gris muy oscuro */
+    padding: 20px;
+    border-left: 4px solid #5B4B8A;
+}
+
+.core-title {
+    font-size: 12px;
+    color: #9CA3AF;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.core-value {
+    font-size: 18px;
+    font-weight: 600;
+    color: #F5F6F7;
+}
+
+.core-desc {
+    font-size: 14px;
+    color: #6B7280;
+    margin-top: 8px;
+    line-height: 1.4;
+}
+
+/* --- SECTION 2: LOGO SYSTEM --- */
+.sec-logo {
+    grid-column: span 8;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 24px;
+}
+
+.logo-display {
+    background-image: radial-gradient(#2A2D34 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-color: #0F0F12;
+    border: 1px solid #2A2D34;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    position: relative;
+}
+
+.logo-main {
+    font-size: 60px;
+    font-weight: 800;
+    letter-spacing: -2px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.logo-icon {
+    color: #5B4B8A;
+    font-size: 50px;
+}
+
+.logo-variants {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.logo-var-box {
+    flex: 1;
+    border: 1px solid #2A2D34;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.var-label {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    font-size: 10px;
+    color: #6B7280;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* --- SECTION 3: COLOR SYSTEM --- */
+.sec-color {
+    grid-column: span 12;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 20px;
+}
+
+.color-card {
+    height: 180px;
+    border-radius: 4px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.hex-code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    opacity: 0.7;
+}
+
+.color-name {
+    font-weight: 700;
+    font-size: 20px;
+    font-family: 'Inter Tight';
+}
+
+.usage-tag {
+    font-size: 10px;
+    text-transform: uppercase;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 2px 6px;
+    align-self: flex-start;
+    border-radius: 2px;
+}
+
+/* --- SECTION 4: TYPOGRAPHY --- */
+.sec-type {
+    grid-column: span 7;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    margin-top: 20px;
+}
+
+.type-row {
+    display: flex;
+    gap: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #2A2D34;
+    align-items: baseline;
+}
+
+.type-name {
+    width: 150px;
+    font-size: 12px;
+    color: #5B4B8A;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.type-sample {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1;
+    color: #F5F6F7;
+}
+
+.type-alphabet {
+    font-size: 14px;
+    color: #6B7280;
+    letter-spacing: 2px;
+    margin-top: 8px;
+    display: block;
+    word-break: break-all;
+}
+
+/* --- SECTION 5: MOTIFS (UI LIBRARY) --- */
+.sec-motifs {
+    grid-column: span 5;
+    margin-top: 20px;
+    background: #18181B;
+    border: 1px solid #2A2D34;
+    padding: 24px;
+}
+
+.ui-element {
+    margin-bottom: 20px;
+}
+
+.ui-label {
+    font-size: 10px;
+    color: #6B7280;
+    margin-bottom: 8px;
+    display: block;
+    text-transform: uppercase;
+}
+
+/* Motif Samples */
+.btn-primary {
+    background: #5B4B8A;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-outline {
+    background: transparent;
+    color: #F5F6F7;
+    padding: 10px 20px;
+    border: 1px solid #3F3F46;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.status-badge {
+    background: rgba(91, 75, 138, 0.2);
+    color: #5B4B8A;
+    padding: 4px 8px;
+    border-radius: 2px;
+    font-size: 10px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono';
+    border: 1px solid rgba(91, 75, 138, 0.4);
+}
+
+.divider-line {
+    height: 1px;
+    background: #3F3F46;
+    width: 100%;
+    margin: 10px 0;
+    position: relative;
+}
+
+.divider-line::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: -1px;
+    height: 3px;
+    width: 40px;
+    background: #5B4B8A;
+}
+
+/* --- SECTION 6: ASSETS & APPLICATIONS --- */
+.sec-assets {
+    grid-column: span 12;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 20px;
+}
+
+.asset-preview {
+    background: #0F0F12;
+    border: 1px solid #2A2D34;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.asset-header {
+    padding: 12px;
+    border-bottom: 1px solid #2A2D34;
+    font-size: 10px;
+    color: #6B7280;
+    text-transform: uppercase;
+    background: #18181B;
+}
+
+/* Mockup: Social Post */
+.mock-post {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100%;
+}
+
+.mock-card {
+    background: #2A2D34;
+    padding: 20px;
+    border: 1px solid #3F3F46;
+    border-radius: 2px;
+}
+
+/* Mockup: Web Hero */
+.mock-hero {
+    background: radial-gradient(circle at 80% 20%, rgba(91, 75, 138, 0.15) 0%, transparent 40%), #0F0F12;
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+</style></head><body><div class="brand-board">< !-- HEADER --><header class="header"><div><div class="brand-name">FPD</div><div class="brand-sub">Formación Profesional Digital</div></div><div style="text-align: right;"><span class="meta-tag">V.1.0 SYS</span><span class="meta-tag" style="margin-left: 8px;">2024</span><div style="margin-top: 8px; font-size: 12px; color: #6B7280;">BRANDKIT BOARD</div></div></header>< !-- COL 1: IDENTITY STRATEGY (CORES) --><section class="sec-identity"><h2>01. Identity Core</h2><div class="core-card"><div class="core-title">Core 1: Voice</div><div class="core-value">Clara. Profesional. Exigente.</div><div class="core-desc">Comunicación sin filtros motivacionales. Autoridad tranquila. "Esto es lo que hay, así se hace" .</div></div><div class="core-card" style="border-color: #F5F6F7;"><div class="core-title">Core 3: Values</div><div class="core-value">Utilidad Radical</div><div class="core-desc">Resultados verificables (Data-driven). Estándar alto e innegociable.</div></div><div class="core-card" style="border-color: #2A2D34;"><div class="core-title">Core 4: Vibe</div><div class="core-value">System Dark Mode</div><div class="core-desc">Estética de IDE de programación o Dashboard financiero. Orden,
+rejillas y estructura.</div></div></section>< !-- COL 2: LOGO SYSTEM --><section class="sec-logo"><div style="grid-column: span 2;"><h2>02. Logo System</h2></div>< !-- Main Logo Display --><div class="logo-display" style="grid-column: 1;"><div class="logo-main"><i class="fa-solid fa-cube logo-icon"></i>FPD </div><div class="var-label">PRIMARY LOCKUP / DARK MODE</div></div>< !-- Logo Variants Stacked --><div class="logo-variants">< !-- Icon Only --><div class="logo-var-box"><i class="fa-solid fa-cube logo-icon" style="font-size: 40px;"></i><div class="var-label">ISOTYPE</div></div>< !-- Light Mode --><div class="logo-var-box" style="background: #F5F6F7;"><div style="color: #0F0F12; font-weight: 800; font-size: 24px; display: flex; gap: 8px; align-items: center;"><i class="fa-solid fa-cube" style="color: #0F0F12;"></i>FPD </div><div class="var-label" style="color: #9CA3AF;">LIGHT VARIANT</div></div></div></section>< !-- ROW 3: COLOR SYSTEM --><section class="sec-color"><div style="grid-column: span 4;"><h2>03. Color Palette</h2></div>< !-- Color 1 --><div class="color-card" style="background: #0F0F12;"><span class="usage-tag">PRIMARY BG (60%)</span><div><div class="color-name">Negro Carbón</div><div class="hex-code">#0F0F12</div></div></div>< !-- Color 2 --><div class="color-card" style="background: #2A2D34;"><span class="usage-tag">CONTAINERS (25%)</span><div><div class="color-name">Gris Grafito</div><div class="hex-code">#2A2D34</div></div></div>< !-- Color 3 --><div class="color-card" style="background: #5B4B8A;"><span class="usage-tag" style="border-color: rgba(255,255,255,0.4);">STATUS / ACCENT (5%)</span><div><div class="color-name">Púrpura Técnico</div><div class="hex-code">#5B4B8A</div></div></div>< !-- Color 4 --><div class="color-card" style="background: #F5F6F7; color: #0F0F12;"><span class="usage-tag" style="border-color: rgba(0,0,0,0.2);">TEXT / READING (10%)</span><div><div class="color-name">Blanco Roto</div><div class="hex-code">#F5F6F7</div></div></div></section>< !-- ROW 4: TYPOGRAPHY & MOTIFS --><section class="sec-type"><h2>04. Typography</h2><div class="module">< !-- Headline Font --><div class="type-row"><div class="type-name">Headline (H1-H3)</div><div style="flex: 1;"><div class="type-sample" style="font-family: 'Inter Tight';">Inter Tight</div><div style="margin-top: 5px; color: #5B4B8A; font-weight: 700; font-size: 14px;">ExtraBold (800) / Bold (700)</div><span class="type-alphabet">ABCDEFGHIJKLMNÑOPQRSTUVWXYZ 0123456789</span></div></div>< !-- Body Font --><div class="type-row" style="border: none; padding-top: 20px;"><div class="type-name">Body / UI</div><div style="flex: 1;"><div class="type-sample" style="font-family: 'Inter'; font-weight: 400; font-size: 32px;">Inter Standard</div><div style="margin-top: 5px; color: #6B7280; font-weight: 400; font-size: 14px;">Regular (400) / Medium (500)</div><p style="font-size: 14px; color: #D1D5DB; line-height: 1.5; margin-top: 10px; max-width: 400px;">La tipografía Inter se utiliza para textos largos y elementos de interfaz debido a su alta legibilidad en pantallas. Mantiene la neutralidad del sistema. </p></div></div></div></section><section class="sec-motifs"><h2>05. Motifs & UI Kit</h2>< !-- Motif List --><div class="ui-element"><span class="ui-label">01. Bloques Contenedores</span><div style="height: 40px; background: #2A2D34; border: 1px solid #3F3F46; border-radius: 4px;"></div></div><div class="ui-element"><span class="ui-label">02. Líneas de Estado</span><div class="divider-line"></div></div><div class="ui-element"><span class="ui-label">03. Botones & Badges</span><div style="display: flex; gap: 10px; align-items: center;"><button class="btn-primary">CTA Action</button><button class="btn-outline">Secondary</button></div><div style="margin-top: 10px;"><span class="status-badge">MÓDULO 1</span><span class="status-badge" style="color: #10B981; border-color: #10B981; background: rgba(16, 185, 129, 0.1);">COMPLETADO</span></div></div></section>< !-- ROW 5: ASSETS (BANNERS & TEMPLATES) --><section class="sec-assets"><div style="grid-column: span 3;"><h2>06. Assets & Applications</h2></div>< !-- Asset 1: Social Template --><div class="asset-preview"><div class="asset-header">Social Template / Data Card</div><div class="mock-post"><div class="mock-card"><span class="status-badge" style="margin-bottom: 12px; display: inline-block;">NUEVO RECURSO</span><h3 style="font-size: 24px; margin: 0 0 10px 0; line-height: 1.1;">Sistemas de<br>Validación</h3><div class="divider-line"></div><div style="display: flex; justify-content: space-between; font-size: 12px; color: #9CA3AF;"><span><i class="fa-solid fa-file-code"></i>PDF+Video</span><span>12 Min</span></div></div></div></div>< !-- Asset 2: Web Hero --><div class="asset-preview" style="grid-column: span 2;"><div class="asset-header">Web Hero Section Concept</div><div class="mock-hero"><span class="meta-tag" style="align-self: flex-start; margin-bottom: 20px;">FPD / ACADEMY</span><h1 style="font-size: 40px; margin: 0 0 16px 0;">Resultados Verificables.</h1><p style="color: #9CA3AF; max-width: 400px; margin-bottom: 24px;">Formación técnica superior sin fricción. Certifícate basado en data real.</p><div style="display: flex; gap: 16px;"><button class="btn-primary">Comenzar Ahora</button><button class="btn-outline">Ver Syllabus</button></div></div></div></section></div></body></html>

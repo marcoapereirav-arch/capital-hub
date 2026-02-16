@@ -1,15 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Capital HUB | Final Logo Identity</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@700;800;900&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
@@ -42,11 +39,9 @@
         /* --- THE LOGO STYLE (The Institution) --- */
         .brand-logo {
             font-family: 'Inter Tight', sans-serif;
-            font-weight: 800;
-            /* ExtraBold */
+            font-weight: 800; /* ExtraBold */
             text-transform: uppercase;
-            letter-spacing: 0.35em;
-            /* The key feature: Extreme Spacing */
+            letter-spacing: 0.35em; /* The key feature: Extreme Spacing */
             line-height: 1;
             white-space: nowrap;
         }
@@ -64,7 +59,7 @@
             text-align: center;
             margin-bottom: 20px;
         }
-
+        
         .label {
             font-size: 11px;
             text-transform: uppercase;
@@ -86,33 +81,28 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
         }
 
         /* Grid Background Effect */
         .hero-display::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
             background-size: 40px 40px;
             opacity: 0.5;
             z-index: 1;
         }
 
         .hero-logo {
-            font-size: 48px;
-            /* Large Scale */
+            font-size: 48px; /* Large Scale */
             color: var(--text-main);
             position: relative;
             z-index: 2;
-            text-align: center;
         }
-
+        
         /* Optional: Adding a subtle "registered" mark feel without the symbol */
         .hero-logo::after {
             content: '';
@@ -148,8 +138,7 @@
         }
 
         .light-mode {
-            background: #F0F2F5;
-            /* Light grey/white paper feel */
+            background: #F0F2F5; /* Light grey/white paper feel */
             color: #111;
         }
 
@@ -185,8 +174,7 @@
         }
 
         .nav-logo {
-            font-size: 16px;
-            /* Smaller UI Scale */
+            font-size: 16px; /* Smaller UI Scale */
             color: var(--text-main);
         }
 
@@ -194,14 +182,14 @@
             display: flex;
             gap: 20px;
         }
-
+        
         .nav-link {
             height: 8px;
             width: 60px;
             background: var(--border-color);
             border-radius: 4px;
         }
-
+        
         .nav-avatar {
             width: 32px;
             height: 32px;
@@ -213,14 +201,14 @@
             padding: 60px;
             text-align: center;
         }
-
+        
         .mock-h1 {
             font-family: 'Inter Tight';
             font-size: 32px;
             color: var(--text-main);
             margin-bottom: 15px;
         }
-
+        
         .mock-p {
             height: 10px;
             width: 400px;
@@ -246,8 +234,7 @@
             height: 80px;
             background: var(--bg-primary);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            /* Smooth square for apps */
+            border-radius: 12px; /* Smooth square for apps */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -255,8 +242,7 @@
             font-weight: 800;
             color: var(--text-main);
             font-size: 28px;
-            letter-spacing: -0.05em;
-            /* Tighter for the icon */
+            letter-spacing: -0.05em; /* Tighter for the icon */
         }
 
         .social-circle {
@@ -269,7 +255,6 @@
             color: var(--text-main);
             margin-bottom: 5px;
         }
-
         .icon-desc p {
             font-size: 14px;
             color: var(--text-muted);
@@ -278,36 +263,17 @@
         }
 
         @media (max-width: 768px) {
-            .hero-logo {
-                font-size: 28px;
-                letter-spacing: 0.2em;
-            }
-
-            /* Responsive adjustment */
-            .context-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .icon-section {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            /* Hide generic links on mobile */
-            .mock-p {
-                width: 80%;
-            }
+            .hero-logo { font-size: 28px; letter-spacing: 0.2em; } /* Responsive adjustment */
+            .context-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-
 <body>
 
-    <!-- Header Removed -->
+    <header>
+        <div style="color: var(--text-muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 10px;">Identidad Visual Seleccionada</div>
+        <h1 style="font-family: 'Inter Tight'; font-size: 32px;">The Institution</h1>
+    </header>
 
     <div class="presentation-container">
 
@@ -319,7 +285,9 @@
                     Capital Hub
                 </div>
             </div>
-            <!-- Technical Specs Removed -->
+            <p style="margin-top: 15px; color: var(--text-muted); font-size: 14px; text-align: center;">
+                Inter Tight ExtraBold / Tracking 0.35em / Uppercase / Optical Kerning
+            </p>
         </div>
 
         <!-- 2. LIGHT VS DARK -->
@@ -337,7 +305,27 @@
             </div>
         </div>
 
-        <!-- Section 3 Removed -->
+        <!-- 3. UI APPLICATION -->
+        <div>
+            <span class="label">03. Aplicación en Interfaz (Header)</span>
+            <div class="app-mockup">
+                <div class="navbar-mock">
+                    <div class="brand-logo nav-logo">Capital Hub</div>
+                    
+                    <div class="nav-links">
+                        <div class="nav-link"></div>
+                        <div class="nav-link"></div>
+                        <div class="nav-link"></div>
+                    </div>
+                    <div class="nav-avatar"></div>
+                </div>
+                <div class="hero-content-mock">
+                    <div class="mock-h1">De FP a FPD</div>
+                    <div class="mock-p"></div>
+                    <div class="mock-p" style="width: 300px;"></div>
+                </div>
+            </div>
+        </div>
 
         <!-- 4. SOCIAL ICON -->
         <div>
@@ -347,9 +335,7 @@
                 <div class="social-icon social-circle">CH</div>
                 <div class="icon-desc">
                     <h3>El Monograma "CH"</h3>
-                    <p>Dado que el logo principal es muy ancho (wide), para avatares y favicons utilizamos una
-                        contracción <strong>Compacta</strong> de las iniciales. Mantiene el peso ExtraBold pero elimina
-                        el espaciado para máxima legibilidad en tamaños pequeños.</p>
+                    <p>Dado que el logo principal es muy ancho (wide), para avatares y favicons utilizamos una contracción <strong>Compacta</strong> de las iniciales. Mantiene el peso ExtraBold pero elimina el espaciado para máxima legibilidad en tamaños pequeños.</p>
                 </div>
             </div>
         </div>
@@ -357,5 +343,4 @@
     </div>
 
 </body>
-
 </html>
